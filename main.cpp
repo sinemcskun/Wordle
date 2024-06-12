@@ -21,12 +21,11 @@ std::string getRandomWord(){
     return "ready";
 }
 
-bool isValidWord(std::string word){
-    //check word correctedness from an API
+bool isValidWord(const std::string& word){
     return word.length() == WORD_LENGTH && std::all_of(word.begin(), word.end(), ::isalpha);
 }
 
-void markMatched(std::vector<std::vector<int>> &matches, int tryIndex, std::string target, std::string& guess){
+void markMatched(std::vector<std::vector<int>> &matches, int tryIndex, const std::string& target, const std::string& guess){
     std::vector<bool> matched(target.length(), false);
     for(int i = 0 ; i < guess.length(); i++)
         matches[tryIndex][i] = NOT_MATCHED;
@@ -51,11 +50,11 @@ void markMatched(std::vector<std::vector<int>> &matches, int tryIndex, std::stri
     }
 }
 
-bool isAllMatched(std::string target, std::string guess){
+bool isAllMatched(const std::string& target, const std::string& guess){
     return target == guess;
 }
 
-void printWordle(std::vector<std::string> guesses, std::vector<std::vector<int>> matches, int currentTry){
+void printWordle(const std::vector<std::string>& guesses, const std::vector<std::vector<int>>& matches, int currentTry){
     system("cls");
     std::cout << "=================================================================" << std::endl;
     std::cout << "|                                                               |" << std::endl;
@@ -71,17 +70,16 @@ void printWordle(std::vector<std::string> guesses, std::vector<std::vector<int>>
     std::cout << "=================================================================" << std::endl;
 
     for(int i = 0; i <= currentTry && i < guesses.size(); i++){
-        std::string seperator = "-";
+        std::string separator = "-";
         std::string padding = "|";
         std::string text = "|";
 
         for(int j = 0; j < guesses[i].length(); j++){
-            seperator += "------";
-            padding += "     |";
+            separator += "------";
+            padding += "      |";
             char value = std::toupper(guesses[i][j]);
             text += "  ";
-            std::cout << matches[i][j] << std::endl;
-
+            
             if(matches[i][j] == PARTIAL_MATCHED){
                 text += "\033[33m"; 
             }else if(matches[i][j] == MATCHED){
@@ -91,19 +89,19 @@ void printWordle(std::vector<std::string> guesses, std::vector<std::vector<int>>
             text += value;
 
             if(matches[i][j] == PARTIAL_MATCHED || matches[i][j] == MATCHED){
-                text += text += "\033[0m";
+                text += "\033[0m";
             }
 
-            text += "  |"; 
+            text += "   |"; 
         }
 
         if(i == 0)
-            std::cout << seperator << std::endl;
+            std::cout << separator << std::endl;
         
         std::cout << padding << std::endl;
         std::cout << text << std::endl;
         std::cout << padding << std::endl;
-        std::cout << seperator << std::endl;
+        std::cout << separator << std::endl;
     }
 }
 
@@ -139,13 +137,13 @@ int main(){
             std::cout << "Found the word" << std::endl;
             break;
         }
+
         currentGuessCount++;
 
         if(currentGuessCount == NUMBER_OF_GUESSES){
             std::cout << "You did not find the word" << std::endl;
-            std::cout<< "The correct word was: " << targetWord << std::endl;
+            std::cout << "The correct word was: " << targetWord << std::endl;
         }
     }
     return 0;
 }
-
