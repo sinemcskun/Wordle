@@ -64,7 +64,3 @@ This is a simple command-line implementation of a Wordle-like game in C++. The o
 ## Known Issues
 
 - The color formatting uses ANSI escape codes, which might not work in the Windows Command Prompt by default.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
