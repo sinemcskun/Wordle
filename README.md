@@ -4,7 +4,7 @@ This is a simple command-line implementation of a Wordle-like game in C++. The o
 
 ## Features
 
-- Randomly selects a target word for the player to guess. (In development stage)
+- Randomly selects a target word for the player to guess.
 - Validates the player's guesses to ensure they are 5-letter words.
 - Provides feedback on each guess:
   - Green for correct letters in the correct position.
